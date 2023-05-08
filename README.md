@@ -1,6 +1,6 @@
 # SQL_Project_1
 
-In this project, we will analyze AdventureWorks data by performing various queries on its database. The SQL tools to be used are:
+The objective of this project its to analyze AdventureWorks data by performing various queries on its database. The SQL tools to be used are:
 
 ## Variables, Functions, and Procedures.
 * 1. Create a procedure that receives a date parameter and shows the number of orders entered on that date.
