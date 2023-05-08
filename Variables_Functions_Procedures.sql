@@ -2,8 +2,7 @@ use adventureworks;
 select * from salesorderheader limit 10;
 
 select * from salesorderheader;
--- 1. Crear un procedimiento que recibe como parametro una fecha y muestre la cantidad de ordenes ingresadas en esa fecha.
--- 1. 
+-- 1. Create a procedure that receives a date parameter and shows the number of orders entered on that date.
 Delimiter //
 Create procedure buscar_por_fecha (IN fecha date)
 begin
@@ -16,7 +15,8 @@ delimiter//
 
 call buscar_por_fecha('2001-06-30');
 
--- 2. Crear una función que calcule el valor nominal de un margen bruto determinado por el usuario a partir del precio de lista de los productos.
+-- 2. Create a function that calculates the face value of a
+-- gross margin determined by the user based on the list price of the products.
 select * from product where ListPrice > 0;
 
 Delimiter //
@@ -31,21 +31,20 @@ Delimiter ;
 select *, margen_bruto(ListPrice, 0.8) from product where ListPrice >0;
 
 
--- 3. Obtner un listado de productos en orden alfabético que muestre cuál debería ser el valor de precio de lista, 
--- si se quiere aplicar un margen bruto del 20%, utilizando la función creada en el punto 2, sobre el campo StandardCost. 
--- Mostrando tambien el campo ListPrice y la diferencia con el nuevo campo creado.
+-- 3. Obtain a list of products in alphabetical order that shows what the list price should be 
+-- if a gross margin of 20% is to be applied, using the function created in point 2 on the StandardCost field.
+-- Also, display the ListPrice field and the difference with the new field created.
 
 select ProductID, Name, ProductNumber,StandardCost,ListPrice, 
 margen_bruto(StandardCost, 1.2), Listprice - margen_bruto(StandardCost, 1.2) as diferencia 
 from product where ListPrice >0 order by(name) asc;
 
 
--- 4. Crear un procedimiento que reciba como parámetro una fecha desde y una hasta, 
--- y muestre un listado con los Id de los diez Clientes que más costo de transporte 
--- tienen entre esas fechas (campo Freight).
+-- 4. Create a procedure that receives a from date and a to date parameter,
+-- and shows a list with the IDs of the ten customers with the highest transportation costs
+-- between those dates (Freight field).
 select * from salesorderheader;
 select CustomerID, sum(Freight) from salesorderheader group by (CustomerID);
-drop procedure buscar_por_fechas;
 
 Delimiter //
 create procedure buscar_por_fechas(IN fecha_desde date, IN fecha_hasta date)
@@ -64,7 +63,7 @@ Delimiter//
 call buscar_por_fechas('2001-08-01','2001-08-30');
 
 
--- 5. Crear un procedimiento que permita realizar la insercción de datos en la tabla shipmethod.
+-- 5. Create a procedure that allows inserting data into the shipmethod table.
 select * from shipmethod;
 
 delimieter //
